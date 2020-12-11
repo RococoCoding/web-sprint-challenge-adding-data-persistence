@@ -25,7 +25,12 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   addProject(req.body)
     .then(data => {
-      res.status(201).json(data);
+      if (data[0].completed === 0) {
+        data[0].completed = false
+      } else {
+        data[0].completed = true;
+      }
+      res.status(201).json(data[0]);
     })
     .catch(err => {
       console.log(err);
